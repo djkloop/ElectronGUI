@@ -2,14 +2,12 @@ import React from 'react';
 import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import Root from './containers/Root';
-import { configureStore, history } from './store/configureStore';
+import { stores, history } from './store';
 import './app.global.css';
-
-const store = configureStore();
 
 render(
   <AppContainer>
-    <Root store={store} history={history} />
+    <Root store={stores} history={history} />
   </AppContainer>,
   document.getElementById('root')
 );
@@ -19,7 +17,7 @@ if (module.hot) {
     const NextRoot = require('./containers/Root'); // eslint-disable-line global-require
     render(
       <AppContainer>
-        <NextRoot store={store} history={history} />
+        <NextRoot store={stores} history={history} />
       </AppContainer>,
       document.getElementById('root')
     );

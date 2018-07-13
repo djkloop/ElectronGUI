@@ -1,27 +1,21 @@
 // @flow
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { inject, observer } from 'mobx-react';
 import styles from './Counter.css';
 
-type Props = {
-  increment: () => void,
-  incrementIfOdd: () => void,
-  incrementAsync: () => void,
-  decrement: () => void,
-  counter: number
-};
-
-export default class Counter extends Component<Props> {
-  props: Props;
-
+@inject(root => ({ counter: root.rootStore.counter }))
+@observer
+class Counter extends Component<Props> {
   render() {
+    console.log(this.props);
     const {
       increment,
       incrementIfOdd,
       incrementAsync,
       decrement,
-      counter
-    } = this.props;
+      count
+    } = this.props.counter;
     return (
       <div>
         <div className={styles.backButton} data-tid="backButton">
@@ -30,10 +24,14 @@ export default class Counter extends Component<Props> {
           </Link>
         </div>
         <div className={`counter ${styles.counter}`} data-tid="counter">
-          {counter}
+          {count}
         </div>
         <div className={styles.btnGroup}>
-          <button className={styles.btn} onClick={increment} data-tclass="btn">
+          <button
+            className={styles.btn}
+            onClick={() => increment()}
+            data-tclass="btn"
+          >
             <i className="fa fa-plus" />
           </button>
           <button className={styles.btn} onClick={decrement} data-tclass="btn">
@@ -48,7 +46,7 @@ export default class Counter extends Component<Props> {
           </button>
           <button
             className={styles.btn}
-            onClick={() => incrementAsync()}
+            onClick={incrementAsync}
             data-tclass="btn"
           >
             async
@@ -58,3 +56,5 @@ export default class Counter extends Component<Props> {
     );
   }
 }
+
+export default Counter;

@@ -1,14 +1,19 @@
 // @flow
-import * as React from 'react';
+import React, { Component } from 'react';
+import DevTools from 'mobx-react-devtools';
 
-type Props = {
-  children: React.Node
-};
-
-export default class App extends React.Component<Props> {
-  props: Props;
-
+export default class App extends Component {
   render() {
-    return <div>{this.props.children}</div>;
+    return (
+      <div>
+        <DevTools
+          position={{
+            bottom: 0,
+            right: 20
+          }}
+        />
+        <div>{this.props.children}</div>
+      </div>
+    );
   }
 }
